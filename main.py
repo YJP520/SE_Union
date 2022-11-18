@@ -24,7 +24,8 @@ from Ex2_ui import Ui_MainWindow_2
 # from Ex7_ui import Ui_MainWindow_7
 # from Ex8_ui import Ui_MainWindow_8
 
-# 导入实验2 T1 实现类
+# 导入实验 T1 实现类
+from Experiments.Ex1.Ex1 import OrderMatch
 from Experiments.Ex2.Ex2_T1 import IndexSearch, WordsIndex
 # 插件类
 from Plug_in.Colors import Color
@@ -96,16 +97,207 @@ class Main_UI(QMainWindow, Ui_MainWindow):
 
 
 # 子窗口继承类
-class child_EX1__UI(QMainWindow, Ui_MainWindow_1):
+class child_EX1_UI(QMainWindow, Ui_MainWindow_1):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        # 监听事件
+        self.controller()
+        # 按钮事件
+        self.buttonInit()
+
+        # 算法实现
+        # 文件路径
+        self.filePath1 = 'F:/Projects/Python Pycharm/SE_Union/Data/Ex2/实验2.2_单文档查找用例.txt'
+        # 既是输出文件路径 又是导入文件路径
+        self.outPath1 = 'F:/Projects/Python Pycharm/SE_Union/Data/Ex2/sanguoIndex.txt'
+
+    # 监听事件都放在这里面
+    def controller(self):
+        # 设置监听
+        self.actionSetting.triggered.connect(self.setting)
+        # 退出监听
+        self.actionExit.triggered.connect(self.exit)
+        # 查找监听
+        self.actionFind.triggered.connect(self.find)
+        # 提示监听
+        self.actionTips.triggered.connect(self.tips)
+
+    # 设置动作按钮点击事件
+    def setting(self):
+        QMessageBox.about(self, 'Setting', '点击了设置动作')
+
+    # 查询动作按钮点击事件
+    def find(self):
+        QMessageBox.about(self, 'find', '点击了查找动作')
+
+    # 退出动作按钮店址事件
+    def exit(self):
+        QMessageBox.about(self, 'Exit', '确定退出程序？')
+        # 退出程序
+        self.actionExit()
+
+    # 提示动作按钮店址事件
+    def tips(self):
+        QMessageBox.about(self, 'Tips', '点击了提示动作')
+
+    # 按钮事件都放在这里面
+    def buttonInit(self):
+        self.pushButton.clicked.connect(self.button_BF)
+        self.pushButton_2.clicked.connect(self.button_KMP)
+        self.pushButton_3.clicked.connect(self.button_BM)
+        self.pushButton_4.clicked.connect(self.button_update)
+        self.pushButton_5.clicked.connect(self.button_clear)
+
+    # BF按钮 动作按钮店址事件
+    def button_BF(self):
+        # QMessageBox.about(self, 'BF', '点击了提示动作')
+        self.textBrowser.clear()
+
+        # 开始搜索
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            S = f.read()
+        # 获取模式串
+        P = self.lineEdit.text()
+        # 异常处理 P
+        # print("# 关键字：" + P)
+        S_len, P_len = len(S), len(P)
+
+        # start = time.time()  # 开始计时
+        position = OrderMatch.BruteForceStringMatchAll(S, P)
+        if len(position) == 0:
+            QMessageBox.about(self, 'ERROR', '关键词不存在o(╥﹏╥)o')
+        else:
+            QMessageBox.about(self, 'Tip', '关键词查找成功(*/ω＼*)')
+        # loseTime = time.time() - start
+        # print("查找用时: ", loseTime)  # 结束计时
+        # print("索引位置：", position)
+
+        count = 0
+        for index in position:
+            while count < index:  # 普通显示
+                # print(Ex1.Color.black + S[count], end="")
+                self.textBrowser.setTextColor(Qt.blue)
+                self.textBrowser.insertPlainText(S[count])
+                count += 1
+            for i in range(0, P_len):  # 关键高亮显示
+                # print(Ex1.Color.green + S[count], end="")
+                self.textBrowser.setTextColor(Qt.cyan)
+                self.textBrowser.insertPlainText(S[count])
+                count += 1
+        while count < S_len:  # 普通显示
+            # print(Ex1.Color.black + S[count], end="")
+            self.textBrowser.setTextColor(Qt.blue)
+            self.textBrowser.insertPlainText(S[count])
+            count += 1
+
+    # KMP按钮 动作按钮店址事件
+    def button_KMP(self):
+        # QMessageBox.about(self, 'KMP', '点击了提示动作')
+        self.textBrowser.clear()
+
+        # 开始搜索
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            S = f.read()
+        # 获取模式串
+        P = self.lineEdit.text()
+        # 异常处理 P
+        # print("# 关键字：" + P)
+        S_len, P_len = len(S), len(P)
+
+        # start = time.time()  # 开始计时
+        position = OrderMatch.KMP_StringMatchAll(S, P)
+        if len(position) == 0:
+            QMessageBox.about(self, 'ERROR', '关键词不存在o(╥﹏╥)o')
+        else:
+            QMessageBox.about(self, 'Tip', '关键词查找成功(*/ω＼*)')
+        # loseTime = time.time() - start
+        # print("查找用时: ", loseTime)  # 结束计时
+        # print("索引位置：", position)
+
+        count = 0
+        for index in position:
+            while count < index:  # 普通显示
+                # print(Ex1.Color.black + S[count], end="")
+                self.textBrowser.setTextColor(Qt.blue)
+                self.textBrowser.insertPlainText(S[count])
+                count += 1
+            for i in range(0, P_len):  # 关键高亮显示
+                # print(Ex1.Color.green + S[count], end="")
+                self.textBrowser.setTextColor(Qt.green)
+                self.textBrowser.insertPlainText(S[count])
+                count += 1
+        while count < S_len:  # 普通显示
+            # print(Ex1.Color.black + S[count], end="")
+            self.textBrowser.setTextColor(Qt.blue)
+            self.textBrowser.insertPlainText(S[count])
+            count += 1
+
+    # BM按钮 动作按钮店址事件
+    def button_BM(self):
+        # QMessageBox.about(self, 'BM', '点击了提示动作')
+        self.textBrowser.clear()
+
+        # 开始搜索
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            S = f.read()
+        # 获取模式串
+        P = self.lineEdit.text()
+        # 异常处理 P
+        # print("# 关键字：" + P)
+        S_len, P_len = len(S), len(P)
+
+        # start = time.time()  # 开始计时
+        position = OrderMatch.BoyerMooreStringMatch(S, P)
+        if len(position) == 0:
+            QMessageBox.about(self, 'ERROR', '关键词不存在o(╥﹏╥)o')
+        else:
+            QMessageBox.about(self, 'Tip', '关键词查找成功(*/ω＼*)')
+        # loseTime = time.time() - start
+        # print("查找用时: ", loseTime)  # 结束计时
+        # print("索引位置：", position)
+
+        count = 0
+        for index in position:
+            while count < index:  # 普通显示
+                # print(Ex1.Color.black + S[count], end="")
+                self.textBrowser.setTextColor(Qt.blue)
+                self.textBrowser.insertPlainText(S[count])
+                count += 1
+            for i in range(0, P_len):  # 关键高亮显示
+                # print(Ex1.Color.green + S[count], end="")
+                self.textBrowser.setTextColor(Qt.red)
+                self.textBrowser.insertPlainText(S[count])
+                count += 1
+        while count < S_len:  # 普通显示
+            # print(Ex1.Color.black + S[count], end="")
+            self.textBrowser.setTextColor(Qt.blue)
+            self.textBrowser.insertPlainText(S[count])
+            count += 1
+
+    # Update按钮 动作按钮店址事件
+    def button_update(self):
+        # QMessageBox.about(self, 'Update', '点击了提示动作')
+        self.textBrowser.clear()
+
+        # 加载文件数据
+        if os.path.exists(self.filePath1):
+            buffer = open(self.filePath1, 'r', encoding='utf-8')
+            for content in buffer:
+                self.textBrowser.setTextColor(Qt.blue)
+                self.textBrowser.insertPlainText(content)
+            buffer.close()
+
+    # Clear按钮 动作按钮店址事件
+    def button_clear(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser.clear()
 
 ########################################################################################################################
 
 
-# 子窗口继承类 EX2_T1
-class child_EX2__UI(QMainWindow, Ui_MainWindow_2):
+# 子窗口继承类 EX2
+class child_EX2_UI(QMainWindow, Ui_MainWindow_2):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
@@ -253,7 +445,7 @@ class child_EX2__UI(QMainWindow, Ui_MainWindow_2):
 
 
 # # 子窗口继承类
-# class child_EX3__UI(QMainWindow, Ui_MainWindow_3):
+# class child_EX3_UI(QMainWindow, Ui_MainWindow_3):
 #     def __init__(self, parent=None):
 #         super().__init__(parent)
 #         self.setupUi(self)
@@ -262,7 +454,7 @@ class child_EX2__UI(QMainWindow, Ui_MainWindow_2):
 
 
 # # 子窗口继承类
-# class child_EX4__UI(QMainWindow, Ui_MainWindow_4):
+# class child_EX4_UI(QMainWindow, Ui_MainWindow_4):
 #     def __init__(self, parent=None):
 #         super().__init__(parent)
 #         self.setupUi(self)
@@ -271,7 +463,7 @@ class child_EX2__UI(QMainWindow, Ui_MainWindow_2):
 
 
 # # 子窗口继承类
-# class child_EX5__UI(QMainWindow, Ui_MainWindow_5):
+# class child_EX5_UI(QMainWindow, Ui_MainWindow_5):
 #     def __init__(self, parent=None):
 #         super().__init__(parent)
 #         self.setupUi(self)
@@ -280,7 +472,7 @@ class child_EX2__UI(QMainWindow, Ui_MainWindow_2):
 
 
 # # 子窗口继承类
-# class child_EX6__UI(QMainWindow, Ui_MainWindow_6):
+# class child_EX6_UI(QMainWindow, Ui_MainWindow_6):
 #     def __init__(self, parent=None):
 #         super().__init__(parent)
 #         self.setupUi(self)
@@ -289,7 +481,7 @@ class child_EX2__UI(QMainWindow, Ui_MainWindow_2):
 
 
 # # 子窗口继承类
-# class child_EX7__UI(QMainWindow, Ui_MainWindow_7):
+# class child_EX7_UI(QMainWindow, Ui_MainWindow_7):
 #     def __init__(self, parent=None):
 #         super().__init__(parent)
 #         self.setupUi(self)
@@ -298,7 +490,7 @@ class child_EX2__UI(QMainWindow, Ui_MainWindow_2):
 
 
 # # 子窗口继承类
-# class child_EX8__UI(QMainWindow, Ui_MainWindow_8):
+# class child_EX8_UI(QMainWindow, Ui_MainWindow_8):
 #     def __init__(self, parent=None):
 #         super().__init__(parent)
 #         self.setupUi(self)
@@ -312,14 +504,14 @@ class AppUI:
         # 实例化窗口对象
         self.main_ui = Main_UI()
         # 子实验窗口
-        self.child_EX1_ui = child_EX1__UI()
-        self.child_EX2_ui = child_EX2__UI()
-        # self.child_EX3_ui = child_EX3__UI()
-        # self.child_EX4_ui = child_EX4__UI()
-        # self.child_EX5_ui = child_EX5__UI()
-        # self.child_EX6_ui = child_EX6__UI()
-        # self.child_EX7_ui = child_EX7__UI()
-        # self.child_EX8_ui = child_EX8__UI()
+        self.child_EX1_ui = child_EX1_UI()
+        self.child_EX2_ui = child_EX2_UI()
+        # self.child_EX3_ui = child_EX3_UI()
+        # self.child_EX4_ui = child_EX4_UI()
+        # self.child_EX5_ui = child_EX5_UI()
+        # self.child_EX6_ui = child_EX6_UI()
+        # self.child_EX7_ui = child_EX7_UI()
+        # self.child_EX8_ui = child_EX8_UI()
 
         # 初始化调用
         self.init()
