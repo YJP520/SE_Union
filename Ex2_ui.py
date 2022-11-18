@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'expro_1.ui'
+# Form implementation generated from reading ui file 'Ex2_ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.7
 #
@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
+class Ui_MainWindow_2(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(642, 411)
@@ -26,7 +26,7 @@ class Ui_MainWindow(object):
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(420, 60, 121, 31))
+        self.pushButton.setGeometry(QtCore.QRect(460, 140, 121, 31))
         self.pushButton.setAutoFillBackground(False)
         self.pushButton.setStyleSheet("QPushButton\n"
 "{\n"
@@ -46,23 +46,13 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.pushButton.setObjectName("pushButton")
-        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
-        self.lineEdit.setGeometry(QtCore.QRect(10, 60, 391, 31))
-        self.lineEdit.setStyleSheet("QLineEdit{\n"
-"    border-style: outset;  /* 边界内凹 */\n"
-"    border-width: 1px;  /* 边界宽度 */\n"
-"    border-radius:5px; /*边界圆滑*/\n"
-"    font: dengxian 20px;  /* 字体大小 */\n"
-"}\n"
-"")
-        self.lineEdit.setObjectName("lineEdit")
         self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(10, 10, 181, 31))
+        self.label.setGeometry(QtCore.QRect(10, 10, 441, 31))
         self.label.setStyleSheet("font: 25 20pt \"等线 Light\";\n"
 "color: rgb(255, 0, 127)")
         self.label.setObjectName("label")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_2.setGeometry(QtCore.QRect(10, 110, 121, 31))
+        self.pushButton_2.setGeometry(QtCore.QRect(460, 50, 121, 31))
         self.pushButton_2.setAutoFillBackground(False)
         self.pushButton_2.setStyleSheet("QPushButton\n"
 "{\n"
@@ -83,7 +73,7 @@ class Ui_MainWindow(object):
 "")
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_3.setGeometry(QtCore.QRect(150, 110, 121, 31))
+        self.pushButton_3.setGeometry(QtCore.QRect(460, 230, 121, 31))
         self.pushButton_3.setAutoFillBackground(False)
         self.pushButton_3.setStyleSheet("QPushButton\n"
 "{\n"
@@ -104,7 +94,7 @@ class Ui_MainWindow(object):
 "")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(10, 150, 121, 31))
+        self.pushButton_4.setGeometry(QtCore.QRect(460, 310, 121, 31))
         self.pushButton_4.setAutoFillBackground(False)
         self.pushButton_4.setStyleSheet("QPushButton\n"
 "{\n"
@@ -124,111 +114,57 @@ class Ui_MainWindow(object):
 "}\n"
 "")
         self.pushButton_4.setObjectName("pushButton_4")
-        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_5.setGeometry(QtCore.QRect(150, 150, 121, 31))
-        self.pushButton_5.setAutoFillBackground(False)
-        self.pushButton_5.setStyleSheet("QPushButton\n"
-"{\n"
-"    background-color: rgb(75, 173, 238); /*背景色*/ \n"
-"    border-style: outset;    /* 边界内凹 */\n"
-"    border-width: 1px;     /* 边边界宽度 */\n"
-"    border-radius: 5px; /* 边界圆滑 */\n"
-"    font: dengxian 16px;     /* 字体大小 */\n"
-"    min-width: 2em;\n"
-"    color: white; /* 字体颜色 */\n"
-"    \n"
-"}\n"
-"/* 鼠标经过改变按钮颜色 */\n"
-"QPushButton:hover\n"
-"{\n"
-"    background-color: rgb(0, 150, 0);\n"
-"}\n"
-"")
-        self.pushButton_5.setObjectName("pushButton_5")
-        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(10, 190, 121, 31))
-        self.pushButton_6.setAutoFillBackground(False)
-        self.pushButton_6.setStyleSheet("QPushButton\n"
-"{\n"
-"    background-color: rgb(75, 173, 238); /*背景色*/ \n"
-"    border-style: outset;    /* 边界内凹 */\n"
-"    border-width: 1px;     /* 边边界宽度 */\n"
-"    border-radius: 5px; /* 边界圆滑 */\n"
-"    font: dengxian 16px;     /* 字体大小 */\n"
-"    min-width: 2em;\n"
-"    color: white; /* 字体颜色 */\n"
-"    \n"
-"}\n"
-"/* 鼠标经过改变按钮颜色 */\n"
-"QPushButton:hover\n"
-"{\n"
-"    background-color: rgb(0, 150, 0);\n"
-"}\n"
-"")
-        self.pushButton_6.setObjectName("pushButton_6")
-        self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_7.setGeometry(QtCore.QRect(150, 190, 121, 31))
-        self.pushButton_7.setAutoFillBackground(False)
-        self.pushButton_7.setStyleSheet("QPushButton\n"
-"{\n"
-"    background-color: rgb(75, 173, 238); /*背景色*/ \n"
-"    border-style: outset;    /* 边界内凹 */\n"
-"    border-width: 1px;     /* 边边界宽度 */\n"
-"    border-radius: 5px; /* 边界圆滑 */\n"
-"    font: dengxian 16px;     /* 字体大小 */\n"
-"    min-width: 2em;\n"
-"    color: white; /* 字体颜色 */\n"
-"    \n"
-"}\n"
-"/* 鼠标经过改变按钮颜色 */\n"
-"QPushButton:hover\n"
-"{\n"
-"    background-color: rgb(0, 150, 0);\n"
-"}\n"
-"")
-        self.pushButton_7.setObjectName("pushButton_7")
-        self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_8.setGeometry(QtCore.QRect(10, 230, 121, 31))
-        self.pushButton_8.setAutoFillBackground(False)
-        self.pushButton_8.setStyleSheet("QPushButton\n"
-"{\n"
-"    background-color: rgb(75, 173, 238); /*背景色*/ \n"
-"    border-style: outset;    /* 边界内凹 */\n"
-"    border-width: 1px;     /* 边边界宽度 */\n"
-"    border-radius: 5px; /* 边界圆滑 */\n"
-"    font: dengxian 16px;     /* 字体大小 */\n"
-"    min-width: 2em;\n"
-"    color: white; /* 字体颜色 */\n"
-"    \n"
-"}\n"
-"/* 鼠标经过改变按钮颜色 */\n"
-"QPushButton:hover\n"
-"{\n"
-"    background-color: rgb(0, 150, 0);\n"
-"}\n"
-"")
-        self.pushButton_8.setObjectName("pushButton_8")
-        self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_9.setGeometry(QtCore.QRect(150, 230, 121, 31))
-        self.pushButton_9.setAutoFillBackground(False)
-        self.pushButton_9.setStyleSheet("QPushButton\n"
-"{\n"
-"    background-color: rgb(75, 173, 238); /*背景色*/ \n"
-"    border-style: outset;    /* 边界内凹 */\n"
-"    border-width: 1px;     /* 边边界宽度 */\n"
-"    border-radius: 5px; /* 边界圆滑 */\n"
-"    font: dengxian 16px;     /* 字体大小 */\n"
-"    min-width: 2em;\n"
-"    color: white; /* 字体颜色 */\n"
-"    \n"
-"}\n"
-"/* 鼠标经过改变按钮颜色 */\n"
-"QPushButton:hover\n"
-"{\n"
-"    background-color: rgb(0, 150, 0);\n"
-"}\n"
-"")
-        self.pushButton_9.setObjectName("pushButton_9")
+        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox.setGeometry(QtCore.QRect(10, 50, 431, 31))
+        font = QtGui.QFont()
+        font.setFamily("20px")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(50)
+        self.comboBox.setFont(font)
+        self.comboBox.setStyleSheet("QComboBox{\n"
+"    font: dengxian 20px;     /* 字体大小 */\n"
+"    color: rgb(85, 0, 255);\n"
+"}")
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
+        self.textBrowser.setGeometry(QtCore.QRect(10, 90, 431, 261))
+        font = QtGui.QFont()
+        font.setFamily("等线")
+        font.setPointSize(12)
+        self.textBrowser.setFont(font)
+        self.textBrowser.setStyleSheet("")
+        self.textBrowser.setObjectName("textBrowser")
+        self.lineEdit = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit.setGeometry(QtCore.QRect(460, 270, 121, 31))
+        self.lineEdit.setObjectName("lineEdit")
+        self.label_2 = QtWidgets.QLabel(self.centralwidget)
+        self.label_2.setGeometry(QtCore.QRect(460, 100, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("等线 Light")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(1)
+        self.label_2.setFont(font)
+        self.label_2.setStyleSheet("font: 10 10pt \"等线 Light\";\n"
+"color: rgb(255, 0, 127)")
+        self.label_2.setObjectName("label_2")
+        self.label_3 = QtWidgets.QLabel(self.centralwidget)
+        self.label_3.setGeometry(QtCore.QRect(460, 190, 111, 31))
+        font = QtGui.QFont()
+        font.setFamily("等线 Light")
+        font.setPointSize(10)
+        font.setBold(False)
+        font.setItalic(False)
+        font.setWeight(1)
+        self.label_3.setFont(font)
+        self.label_3.setStyleSheet("font: 10 10pt \"等线 Light\";\n"
+"color: rgb(255, 0, 127)")
+        self.label_3.setObjectName("label_3")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 642, 27))
@@ -276,22 +212,6 @@ class Ui_MainWindow(object):
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
-        self.toolBar = QtWidgets.QToolBar(MainWindow)
-        self.toolBar.setStyleSheet("*{\n"
-"    font-family: dengxian;\n"
-"    font-size: 20px;\n"
-"    color: rgb(170, 255, 127);\n"
-"}")
-        self.toolBar.setObjectName("toolBar")
-        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar)
-        self.toolBar_2 = QtWidgets.QToolBar(MainWindow)
-        self.toolBar_2.setStyleSheet("*{\n"
-"    font-family: dengxian;\n"
-"    font-size: 20px;\n"
-"    color: rgb(170, 255, 127);\n"
-"}")
-        self.toolBar_2.setObjectName("toolBar_2")
-        MainWindow.addToolBar(QtCore.Qt.TopToolBarArea, self.toolBar_2)
         self.toolBar_3 = QtWidgets.QToolBar(MainWindow)
         self.toolBar_3.setStyleSheet("*{\n"
 "    font-family: dengxian;\n"
@@ -448,8 +368,6 @@ class Ui_MainWindow(object):
         self.menubar.addAction(self.menuFILE.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
-        self.toolBar.addAction(self.actionT1_2)
-        self.toolBar_2.addAction(self.actionT1)
         self.toolBar_3.addAction(self.actionFind)
         self.toolBar_3.addAction(self.actionCut)
         self.toolBar_3.addAction(self.actionCopy)
@@ -464,17 +382,21 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
-        self.lineEdit.setText(_translate("MainWindow", "开始"))
-        self.label.setText(_translate("MainWindow", "SE-Union V2.0"))
-        self.pushButton_2.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_3.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_5.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_6.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_7.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_8.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_9.setText(_translate("MainWindow", "PushButton"))
+        self.pushButton.setText(_translate("MainWindow", "Build Index"))
+        self.label.setText(_translate("MainWindow", "EX2 - 索引检索技术"))
+        self.pushButton_2.setText(_translate("MainWindow", "Clear"))
+        self.pushButton_3.setText(_translate("MainWindow", "Build New"))
+        self.pushButton_4.setText(_translate("MainWindow", "Find"))
+        self.comboBox.setItemText(0, _translate("MainWindow", "F:\\Project\\Pycharm"))
+        self.comboBox.setItemText(1, _translate("MainWindow", "F:\\Project\\Pycharm\\SE_Union"))
+        self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"</style></head><body style=\" font-family:\'等线\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'20px\';\">BIGIN...</span></p></body></html>"))
+        self.lineEdit.setText(_translate("MainWindow", "Input..."))
+        self.label_2.setText(_translate("MainWindow", "建立索引测试"))
+        self.label_3.setText(_translate("MainWindow", "索引查找"))
         self.menuFILE.setTitle(_translate("MainWindow", "Rule"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuView.setTitle(_translate("MainWindow", "View"))
@@ -490,8 +412,6 @@ class Ui_MainWindow(object):
         self.menuEx5.setTitle(_translate("MainWindow", "Ex5"))
         self.menuEx7.setTitle(_translate("MainWindow", "Ex7"))
         self.menuEx8.setTitle(_translate("MainWindow", "Ex8"))
-        self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
-        self.toolBar_2.setWindowTitle(_translate("MainWindow", "toolBar_2"))
         self.toolBar_3.setWindowTitle(_translate("MainWindow", "toolBar_3"))
         self.actionEdit.setText(_translate("MainWindow", "Version"))
         self.actionSetting.setText(_translate("MainWindow", "Setting"))
@@ -529,3 +449,4 @@ class Ui_MainWindow(object):
         self.actionRetro.setText(_translate("MainWindow", "Retro"))
         self.actionChinese.setText(_translate("MainWindow", "Chinese"))
         self.actionEnglish.setText(_translate("MainWindow", "English"))
+import dark_rc
