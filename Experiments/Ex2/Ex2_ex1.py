@@ -266,7 +266,7 @@ class CustomGUI:
         self.text.delete(1.0, 'end')  # 文本框
         print('# 删除原始数据...')
 
-        # foreground字体颜色 font字体样式,大小等 background 背景色
+        # foreground字体颜色 font字体样式,大小等 background.py 背景色
         # 设置tag即插入文字的大小,颜色等
         self.text.tag_config('tag_red_yellow', foreground='red',background='yellow')
         self.text.tag_config('tag_green_yellow', foreground='green', background='yellow')

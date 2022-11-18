@@ -19,7 +19,21 @@ ___
 
 ### **设计思路**
 
+- 多窗口界面设置
+
 ---
+
+### **关键**
+
+**ui 转 py**
+
+PYQT5
+
+    $ pyuic5 -o expro_1.py expro_1.ui
+
+Pyside2
+
+    $ pyside_uic -o expro_1.py expro_1.ui
 
 ### **实践展示**
 
