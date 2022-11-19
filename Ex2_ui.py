@@ -56,7 +56,7 @@ class Ui_MainWindow_2(object):
         self.pushButton_2.setAutoFillBackground(False)
         self.pushButton_2.setStyleSheet("QPushButton\n"
 "{\n"
-"    background-color: rgb(75, 173, 238); /*背景色*/ \n"
+"    background-color: rgb(255, 170, 255); /*背景色*/ \n"
 "    border-style: outset;    /* 边界内凹 */\n"
 "    border-width: 1px;     /* 边边界宽度 */\n"
 "    border-radius: 5px; /* 边界圆滑 */\n"
@@ -98,7 +98,7 @@ class Ui_MainWindow_2(object):
         self.pushButton_4.setAutoFillBackground(False)
         self.pushButton_4.setStyleSheet("QPushButton\n"
 "{\n"
-"    background-color: rgb(75, 173, 238); /*背景色*/ \n"
+"    background-color: rgb(255, 85, 127); /*背景色*/ \n"
 "    border-style: outset;    /* 边界内凹 */\n"
 "    border-width: 1px;     /* 边边界宽度 */\n"
 "    border-radius: 5px; /* 边界圆滑 */\n"
@@ -114,22 +114,6 @@ class Ui_MainWindow_2(object):
 "}\n"
 "")
         self.pushButton_4.setObjectName("pushButton_4")
-        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
-        self.comboBox.setGeometry(QtCore.QRect(10, 50, 431, 31))
-        font = QtGui.QFont()
-        font.setFamily("20px")
-        font.setPointSize(10)
-        font.setBold(False)
-        font.setItalic(False)
-        font.setWeight(50)
-        self.comboBox.setFont(font)
-        self.comboBox.setStyleSheet("QComboBox{\n"
-"    font: dengxian 20px;     /* 字体大小 */\n"
-"    color: rgb(85, 0, 255);\n"
-"}")
-        self.comboBox.setObjectName("comboBox")
-        self.comboBox.addItem("")
-        self.comboBox.addItem("")
         self.textBrowser = QtWidgets.QTextBrowser(self.centralwidget)
         self.textBrowser.setGeometry(QtCore.QRect(10, 90, 431, 261))
         font = QtGui.QFont()
@@ -165,6 +149,34 @@ class Ui_MainWindow_2(object):
         self.label_3.setStyleSheet("font: 10 10pt \"等线 Light\";\n"
 "color: rgb(255, 0, 127)")
         self.label_3.setObjectName("label_3")
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.centralwidget)
+        self.lineEdit_2.setGeometry(QtCore.QRect(10, 50, 371, 31))
+        font = QtGui.QFont()
+        font.setFamily("等线")
+        font.setPointSize(12)
+        self.lineEdit_2.setFont(font)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_6.setGeometry(QtCore.QRect(390, 50, 51, 31))
+        self.pushButton_6.setAutoFillBackground(False)
+        self.pushButton_6.setStyleSheet("QPushButton\n"
+"{\n"
+"    background-color: rgb(255, 170, 0); /*背景色*/ \n"
+"    border-style: outset;    /* 边界内凹 */\n"
+"    border-width: 1px;     /* 边边界宽度 */\n"
+"    border-radius: 5px; /* 边界圆滑 */\n"
+"    font: dengxian 16px;     /* 字体大小 */\n"
+"    min-width: 2em;\n"
+"    color: white; /* 字体颜色 */\n"
+"    \n"
+"}\n"
+"/* 鼠标经过改变按钮颜色 */\n"
+"QPushButton:hover\n"
+"{\n"
+"    background-color: rgb(0, 150, 0);\n"
+"}\n"
+"")
+        self.pushButton_6.setObjectName("pushButton_6")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
         self.menubar.setGeometry(QtCore.QRect(0, 0, 642, 27))
@@ -387,8 +399,6 @@ class Ui_MainWindow_2(object):
         self.pushButton_2.setText(_translate("MainWindow", "Clear"))
         self.pushButton_3.setText(_translate("MainWindow", "Build New"))
         self.pushButton_4.setText(_translate("MainWindow", "Find"))
-        self.comboBox.setItemText(0, _translate("MainWindow", "F:\\Project\\Pycharm"))
-        self.comboBox.setItemText(1, _translate("MainWindow", "F:\\Project\\Pycharm\\SE_Union"))
         self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -397,6 +407,7 @@ class Ui_MainWindow_2(object):
         self.lineEdit.setText(_translate("MainWindow", "Input..."))
         self.label_2.setText(_translate("MainWindow", "建立索引测试"))
         self.label_3.setText(_translate("MainWindow", "索引查找"))
+        self.pushButton_6.setText(_translate("MainWindow", "File"))
         self.menuFILE.setTitle(_translate("MainWindow", "Rule"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuView.setTitle(_translate("MainWindow", "View"))

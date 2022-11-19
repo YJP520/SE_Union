@@ -204,7 +204,7 @@ class WordsIndex:
 
 # 测试
 def test():
-    filePath = 'F:/Projects/Python Pycharm/SE_Union/Data/Ex2/实验2.2_单文档查找用例.txt'
+    filePath = '/Data/Ex2/实验2.2_单文档查找用例.txt'
     outPath = 'F:/Projects/Python Pycharm/SE_Union/Data/Ex2/sanguoIndex.txt'  # 既是输出文件路径 又是导入文件路径
 
     index_Ob = WordsIndex(filePath)  # 建立对象
