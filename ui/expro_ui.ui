@@ -251,7 +251,7 @@ QPushButton:hover
 </string>
     </property>
     <property name="text">
-     <string>K-shingle</string>
+     <string>文本查重技术</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_6">

@@ -477,7 +477,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "顺序检索技术"))
         self.pushButton_3.setText(_translate("MainWindow", "索引检索技术"))
         self.pushButton_4.setText(_translate("MainWindow", "爬虫技术"))
-        self.pushButton_5.setText(_translate("MainWindow", "K-shingle"))
+        self.pushButton_5.setText(_translate("MainWindow", "文本查重技术"))
         self.pushButton_6.setText(_translate("MainWindow", "中文分词技术"))
         self.pushButton_7.setText(_translate("MainWindow", "文本相似度"))
         self.pushButton_8.setText(_translate("MainWindow", "网页重要性"))

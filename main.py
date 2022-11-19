@@ -19,7 +19,7 @@ from expro_ui import Ui_MainWindow
 from Ex1_ui import Ui_MainWindow_1
 from Ex2_ui import Ui_MainWindow_2
 from Ex3_ui import Ui_MainWindow_3
-# from Ex4_ui import Ui_MainWindow_4
+from Ex4_ui import Ui_MainWindow_4
 # from Ex5_ui import Ui_MainWindow_5
 # from Ex6_ui import Ui_MainWindow_6
 # from Ex7_ui import Ui_MainWindow_7
@@ -28,11 +28,13 @@ from Ex3_ui import Ui_MainWindow_3
 from Experiments.Ex1 import OrderMatch
 from Experiments.Ex2 import WordsIndex
 from Experiments.Ex3 import BloomFilter, Remove
-import urllib.request  # 爬虫
 from bs4 import BeautifulSoup  # 爬虫
+import urllib.request  # 爬虫
 import re  # 正则表达式
+from Experiments.Ex4 import KShingle, KS_PRO, SimHash
 # 插件类
 from Plug_in.Colors import Color
+
 
 ########################################################################################################################
 
@@ -96,6 +98,7 @@ class Main_UI(QMainWindow, Ui_MainWindow):
     # 按钮点击动作按钮店址事件
     def button(self):
         QMessageBox.about(self, 'Button', '点击了按钮点动作')
+
 
 ########################################################################################################################
 
@@ -306,6 +309,7 @@ class child_EX1_UI(QMainWindow, Ui_MainWindow_1):
         # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
         self.textBrowser.clear()
 
+
 ########################################################################################################################
 
 
@@ -464,6 +468,7 @@ class child_EX2_UI(QMainWindow, Ui_MainWindow_2):
     # 按钮点击动作按钮店址事件
     def button(self):
         QMessageBox.about(self, 'Button', '点击了按钮点动作')
+
 
 ########################################################################################################################
 
@@ -791,7 +796,8 @@ class child_EX3_UI(QMainWindow, Ui_MainWindow_3):
 
         # print(Color.carmine + '# 已爬取网站数:', self.urlCount, ' 图片数:', self.imgCount)
         self.textBrowser.setTextColor(Qt.darkRed)
-        self.textBrowser.insertPlainText('# 已爬取网站数:' + str(self.urlCount) + ' 图片数:' + str(self.imgCount) + '\n')
+        self.textBrowser.insertPlainText(
+            '# 已爬取网站数:' + str(self.urlCount) + ' 图片数:' + str(self.imgCount) + '\n')
 
         # 筛选网址
         # print(childList)
@@ -806,14 +812,193 @@ class child_EX3_UI(QMainWindow, Ui_MainWindow_3):
                 if self.bf.is_contain(index) == 0:  # 不包含
                     self.DFS_Loop(index, depth + 1)  # 递归调用
 
+
 ########################################################################################################################
 
 
-# # 子窗口继承类
-# class child_EX4_UI(QMainWindow, Ui_MainWindow_4):
-#     def __init__(self, parent=None):
-#         super().__init__(parent)
-#         self.setupUi(self)
+# 子窗口继承类
+class child_EX4_UI(QMainWindow, Ui_MainWindow_4):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        # 事件监听
+        self.controller()
+        # 按钮监听
+        self.buttonInit()
+        # 查看文件路径
+        self.filePath1 = None
+        self.filePath2 = None
+        # K-Shingle
+        self.k_value = 2
+        # 文本
+        self.content1 = None
+        self.content2 = None
+
+    # 监听事件都放在这里面
+    def controller(self):
+        # 设置监听
+        self.actionSetting.triggered.connect(self.setting)
+        # 退出监听
+        self.actionExit.triggered.connect(self.exit)
+        # 查找监听
+        self.actionFind.triggered.connect(self.find)
+        # 提示监听
+        self.actionTips.triggered.connect(self.tips)
+
+    # 设置动作按钮点击事件
+    def setting(self):
+        QMessageBox.about(self, 'Setting', '点击了设置动作')
+
+    # 查询动作按钮点击事件
+    def find(self):
+        QMessageBox.about(self, 'find', '点击了查找动作')
+
+    # 退出动作按钮店址事件
+    def exit(self):
+        QMessageBox.about(self, 'Exit', '确定退出程序？')
+        # 退出程序
+        self.actionExit()
+
+    # 提示动作按钮店址事件
+    def tips(self):
+        QMessageBox.about(self, 'Tips', '点击了提示动作')
+
+    # 按钮事件都放在这里面
+    def buttonInit(self):
+        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton_2.clicked.connect(self.button_clear1)
+        self.pushButton_3.clicked.connect(self.button_clear2)
+        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_5.clicked.connect(self.button_selectFile1)
+        self.pushButton_6.clicked.connect(self.button_selectFile2)
+        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
+        self.pushButton_8.clicked.connect(self.button_input1)
+        self.pushButton_9.clicked.connect(self.button_input2)
+
+    # Clear1按钮 动作按钮店址事件
+    def button_clear1(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser.clear()
+
+    # Clear2按钮 动作按钮店址事件
+    def button_clear2(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser_2.clear()
+
+    # 选择文件1动作按钮店址事件
+    def button_selectFile1(self):
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath1 = fileName[0][0]
+        # print(self.filePath1)
+        self.lineEdit.setText(self.filePath1)
+        # 加载文件数据
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            self.content1 = f.read()
+        f.close()
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
+
+    # 选择文件2动作按钮店址事件
+    def button_selectFile2(self):
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath2 = fileName[0][0]
+        # print(self.filePath1)
+        self.lineEdit_2.setText(self.filePath2)
+        # 加载文件数据
+        with open(self.filePath2, 'r', encoding='utf-8') as f:
+            self.content2 = f.read()
+        f.close()
+        self.textBrowser_2.setTextColor(Qt.black)
+        self.textBrowser_2.insertPlainText(self.content2)
+
+    # input1按钮 动作按钮店址事件
+    def button_input1(self):
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.content1 = self.lineEdit.text()
+        # 加载文件数据
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
+
+    # input2按钮 动作按钮店址事件
+    def button_input2(self):
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser_2.clear()
+        self.content2 = self.lineEdit_2.text()
+        # 加载文件数据
+        self.textBrowser_2.setTextColor(Qt.black)
+        self.textBrowser_2.insertPlainText(self.content2)
+
+    # calculate kshingle 按钮 动作按钮店址事件
+    def button_calculate_kshingle(self):
+        # QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+        temp = self.lineEdit_3.text()
+        value = int(temp)
+        if value > 0:
+            self.k_value = value
+        similarity = KShingle.getSimilarity(self.content1, self.content2, self.k_value)
+        # 加载相似度
+        self.lineEdit_4.setText("%.2f" % similarity)
+
+    # compare 按钮 动作按钮店址事件
+    def button_compare(self):
+        # QMessageBox.about(self, 'compare', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.textBrowser_2.clear()
+
+        list1 = KS_PRO.cutWords(self.content1)
+        wordsList1 = []
+        for index in list1:
+            if index not in "，。《》、？；：‘”【{】}、|=+-——）（*&……%￥#@！ ,<.>/?\'\";:[{]}=+-_)(*&^%$#@!":
+                wordsList1.append(index)
+        # print(Color.green, wordsList1)
+
+        list2 = KS_PRO.cutWords(self.content2)
+        wordsList2 = []
+        for index in list2:
+            if index not in "，。《》、？；：‘”【{】}、|=+-——）（*&……%￥#@！ ,<.>/?\'\";:[{]}=+-_)(*&^%$#@!":
+                wordsList2.append(index)
+        # print(Color.carmine, wordsList2)
+
+        commonWords = set(wordsList1) & set(wordsList2)
+        # print(Color.blue, commonWords)
+
+        for index in list1:
+            if index in commonWords:
+                # print(Color.green + index, end='')
+                self.textBrowser.setTextColor(Qt.green)
+                self.textBrowser.insertPlainText(index)
+            else:
+                # print(Color.black + index, end='')
+                self.textBrowser.setTextColor(Qt.black)
+                self.textBrowser.insertPlainText(index)
+
+        # print("\n")
+        for index in list2:
+            if index in commonWords:
+                # print(Color.red + index, end='')
+                self.textBrowser_2.setTextColor(Qt.red)
+                self.textBrowser_2.insertPlainText(index)
+            else:
+                # print(Color.black + index, end='')
+                self.textBrowser_2.setTextColor(Qt.black)
+                self.textBrowser_2.insertPlainText(index)
+
+        # K_value = 2
+        # print(Color.red, cls.getSimilarity(content1, content2, K_value))
+        similarity = KS_PRO.getSimilarity_list(wordsList1, wordsList2)
+        # print(Color.red, '\nsimilarity =', similarity)
+        self.lineEdit_4.setText("%.2f" % similarity)
+
+    # calculate simhash 按钮 动作按钮店址事件
+    def button_calculate_simhash(self):
+        # QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
+        similarity = SimHash.getSimHash(self.content1, self.content2)
+        # 加载相似度
+        self.lineEdit_4.setText("%d" % similarity)
+
 
 ########################################################################################################################
 
@@ -863,7 +1048,7 @@ class AppUI:
         self.child_EX1_ui = child_EX1_UI()
         self.child_EX2_ui = child_EX2_UI()
         self.child_EX3_ui = child_EX3_UI()
-        # self.child_EX4_ui = child_EX4_UI()
+        self.child_EX4_ui = child_EX4_UI()
         # self.child_EX5_ui = child_EX5_UI()
         # self.child_EX6_ui = child_EX6_UI()
         # self.child_EX7_ui = child_EX7_UI()
@@ -886,8 +1071,8 @@ class AppUI:
         self.main_ui.pushButton_4.clicked.connect(self.child_EX3_ui.show)
         self.main_ui.actionT1_3.triggered.connect(self.child_EX3_ui.show)
         # EX4
-        # self.main_ui.pushButton_5.clicked.connect(self.child_EX4_ui.show)
-        # self.main_ui.actionT1_4.triggered.connect(self.child_EX4_ui.show)
+        self.main_ui.pushButton_5.clicked.connect(self.child_EX4_ui.show)
+        self.main_ui.actionT1_4.triggered.connect(self.child_EX4_ui.show)
         # EX5
         # self.main_ui.pushButton_6.clicked.connect(self.child_EX5_ui.show)
         # self.main_ui.actionT1_5.triggered.connect(self.child_EX5_ui.show)
@@ -900,6 +1085,7 @@ class AppUI:
         # EX8
         # self.main_ui.pushButton_9.clicked.connect(self.child_EX8_ui.show)
         # self.main_ui.actionT1_8.triggered.connect(self.child_EX8_ui.show)
+
 
 ########################################################################################################################
 
@@ -914,4 +1100,3 @@ if __name__ == '__main__':
     app_ui.main_ui.show()
     # 循环不退出
     sys.exit(app.exec_())
-
