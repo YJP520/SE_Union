@@ -32,6 +32,11 @@ from bs4 import BeautifulSoup  # 爬虫
 import urllib.request  # 爬虫
 import re  # 正则表达式
 from Experiments.Ex4 import KShingle, KS_PRO, SimHash
+from Experiments.Ex5 import Statistic, leftMax, rightMax, doubleMax, Sanguo
+from Experiments.Ex6 import MY_TF_IDF, SL_TFIDF, Cos
+from Experiments.Ex7 import PRIterator, TextRank
+from pygraph.classes.digraph import digraph
+from Experiments.Ex8 import TFIDF_Abstract
 # 插件类
 from Plug_in.Colors import Color
 
@@ -1014,8 +1019,10 @@ class child_EX5_UI(QMainWindow, Ui_MainWindow_5):
         self.buttonInit()
         # 查看文件路径
         self.filePath1 = None
+        self.filePath2 = None
         # 文本
         self.content1 = None
+        self.content2 = None
 
     # 监听事件都放在这里面
     def controller(self):
@@ -1048,15 +1055,16 @@ class child_EX5_UI(QMainWindow, Ui_MainWindow_5):
 
     # 按钮事件都放在这里面
     def buttonInit(self):
-        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton.clicked.connect(self.button_jieba)
         self.pushButton_2.clicked.connect(self.button_clear1)
         self.pushButton_3.clicked.connect(self.button_clear2)
-        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_4.clicked.connect(self.button_match_front)
         self.pushButton_5.clicked.connect(self.button_selectFile1)
         self.pushButton_6.clicked.connect(self.button_selectFile2)
-        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
+        self.pushButton_7.clicked.connect(self.button_match_back)
         self.pushButton_8.clicked.connect(self.button_input1)
         self.pushButton_9.clicked.connect(self.button_input2)
+        self.pushButton_10.clicked.connect(self.button_statistics)
 
     # Clear1按钮 动作按钮店址事件
     def button_clear1(self):
@@ -1070,41 +1078,105 @@ class child_EX5_UI(QMainWindow, Ui_MainWindow_5):
 
     # 选择文件1动作按钮店址事件
     def button_selectFile1(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
-        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
-        # self.filePath1 = fileName[0][0]
-        # # print(self.filePath1)
-        # self.lineEdit.setText(self.filePath1)
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath1 = fileName[0][0]
+        # print(self.filePath1)
+        self.lineEdit.setText(self.filePath1)
+        # 加载文件数据
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            self.content1 = f.read()
+        f.close()
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
+
+    # 选择文件2动作按钮店址事件
+    def button_selectFile2(self):
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath2 = fileName[0][0]
+        # print(self.filePath1)
+        self.lineEdit_2.setText(self.filePath2)
         # # 加载文件数据
-        # with open(self.filePath1, 'r', encoding='utf-8') as f:
+        # with open(self.filePath2, 'r', encoding='utf-8') as f:
         #     self.content1 = f.read()
         # f.close()
         # self.textBrowser.setTextColor(Qt.black)
         # self.textBrowser.insertPlainText(self.content1)
 
-    # 选择文件2动作按钮店址事件
-    def button_selectFile2(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
-
     # input1按钮 动作按钮店址事件
     def button_input1(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.content1 = self.lineEdit.text()
+        # 加载文件数据
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
 
     # input2按钮 动作按钮店址事件
     def button_input2(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # self.textBrowser.clear()
+        self.content2 = self.lineEdit_2.text()
+        # 加载文件数据
+        # self.textBrowser.setTextColor(Qt.black)
+        # self.textBrowser.insertPlainText(self.content1)
 
-    # calculate kshingle 按钮 动作按钮店址事件
-    def button_calculate_kshingle(self):
-        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+    # jieba 按钮 动作按钮店址事件
+    def button_jieba(self):
+        # QMessageBox.about(self, 'jieba', '点击了按钮点动作')
+        self.textBrowser.clear()
+        wordsDic = Statistic.JiebaWords(self.content1, 20)  # 统计词频
+        wordsPos = Statistic.BMWords(self.content1, wordsDic)  # 统计索引
+        # 打印词频
+        # print(Color.yellow, '\n# 打印词频:')
+        self.textBrowser_2.setTextColor(Qt.black)
+        self.textBrowser_2.insertPlainText('# 打印词频:\n')
+        for key, value in wordsDic:
+            self.textBrowser_2.setTextColor(Qt.red)
+            self.textBrowser_2.insertPlainText('[' + key + ':' + str(value) + '],')
+            # print(Color.carmine, '[', end='')
+            # print(Color.blue, key, Color.green, ":", value, end='')
+            # print(Color.carmine, '],', end='')
+        # 打印索引
+        # print(Color.yellow, '\n# 打印索引:')
+        self.textBrowser_2.setTextColor(Qt.black)
+        self.textBrowser_2.insertPlainText('\n# 打印索引:\n')
+        for key, value in wordsPos.items():
+            self.textBrowser_2.setTextColor(Qt.darkGreen)
+            self.textBrowser_2.insertPlainText('[' + key + ':' + str(value) + '],')
+            # print(Color.red, '[', end='')
+            # print(Color.blue, key, Color.green, ":", value, end='')
+            # print(Color.red, '],', end='')
 
-    # compare 按钮 动作按钮店址事件
-    def button_compare(self):
-        QMessageBox.about(self, 'compare', '点击了按钮点动作')
+    # match_front 按钮 动作按钮店址事件
+    def button_match_front(self):
+        # QMessageBox.about(self, 'match_front', '点击了按钮点动作')
+        self.textBrowser.clear()
+        tokenizer = leftMax('Data/Ex5/30wdict_utf8.txt')
+        content = tokenizer.cut(self.content1)
+        self.textBrowser_2.setTextColor(Qt.darkGreen)
+        self.textBrowser_2.insertPlainText('# 正匹配：\n')
+        self.textBrowser_2.setTextColor(Qt.blue)
+        self.textBrowser_2.insertPlainText(str(content))
 
-    # calculate simhash 按钮 动作按钮店址事件
-    def button_calculate_simhash(self):
-        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
+    # match_back 按钮 动作按钮店址事件
+    def button_match_back(self):
+        # QMessageBox.about(self, 'match_back', '点击了按钮点动作')
+        self.textBrowser.clear()
+        tokenizer = rightMax('Data/Ex5/30wdict_utf8.txt')
+        content = tokenizer.cut(self.content1)
+        self.textBrowser_2.setTextColor(Qt.darkGreen)
+        self.textBrowser_2.insertPlainText('# 逆向匹配：\n')
+        self.textBrowser_2.setTextColor(Qt.blue)
+        self.textBrowser_2.insertPlainText(str(content))
+
+    # statistics 按钮 动作按钮店址事件
+    def button_statistics(self):
+        # QMessageBox.about(self, 'statistics', '点击了按钮点动作')
+        with open('Data/Ex5/sanguo.txt', 'r', encoding='utf-8') as f:
+            self.content2 = f.read()
+        Sanguo.showResult(self.content2, 10)
 
 ########################################################################################################################
 
@@ -1120,8 +1192,10 @@ class child_EX6_UI(QMainWindow, Ui_MainWindow_6):
         self.buttonInit()
         # 查看文件路径
         self.filePath1 = None
+        self.filePath2 = None
         # 文本
         self.content1 = None
+        self.content2 = None
 
     # 监听事件都放在这里面
     def controller(self):
@@ -1154,13 +1228,12 @@ class child_EX6_UI(QMainWindow, Ui_MainWindow_6):
 
     # 按钮事件都放在这里面
     def buttonInit(self):
-        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton.clicked.connect(self.button_SL_TFIDF)
         self.pushButton_2.clicked.connect(self.button_clear1)
-        self.pushButton_3.clicked.connect(self.button_clear2)
-        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_4.clicked.connect(self.button_myTFIDF)
         self.pushButton_5.clicked.connect(self.button_selectFile1)
         self.pushButton_6.clicked.connect(self.button_selectFile2)
-        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
+        self.pushButton_7.clicked.connect(self.button_cos)
         self.pushButton_8.clicked.connect(self.button_input1)
         self.pushButton_9.clicked.connect(self.button_input2)
 
@@ -1169,48 +1242,89 @@ class child_EX6_UI(QMainWindow, Ui_MainWindow_6):
         # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
         self.textBrowser.clear()
 
-    # Clear2按钮 动作按钮店址事件
-    def button_clear2(self):
-        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
-        self.textBrowser_2.clear()
-
     # 选择文件1动作按钮店址事件
     def button_selectFile1(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
-        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
-        # self.filePath1 = fileName[0][0]
-        # # print(self.filePath1)
-        # self.lineEdit.setText(self.filePath1)
-        # # 加载文件数据
-        # with open(self.filePath1, 'r', encoding='utf-8') as f:
-        #     self.content1 = f.read()
-        # f.close()
-        # self.textBrowser.setTextColor(Qt.black)
-        # self.textBrowser.insertPlainText(self.content1)
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath1 = fileName[0][0]
+        # print(self.filePath1)
+        self.lineEdit.setText(self.filePath1)
+        # 加载文件数据
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            self.content1 = f.read()
+        f.close()
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
 
     # 选择文件2动作按钮店址事件
     def button_selectFile2(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath2 = fileName[0][0]
+        # print(self.filePath2)
+        self.lineEdit_2.setText(self.filePath2)
+        # 加载文件数据
+        with open(self.filePath2, 'r', encoding='utf-8') as f:
+            self.content2 = f.read()
+        f.close()
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content2)
 
     # input1按钮 动作按钮店址事件
     def button_input1(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.content1 = self.lineEdit.text()
+        # 加载文件数据
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
 
     # input2按钮 动作按钮店址事件
     def button_input2(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.content2 = self.lineEdit_2.text()
+        # 加载文件数据
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content2)
 
     # calculate kshingle 按钮 动作按钮店址事件
-    def button_calculate_kshingle(self):
-        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+    def button_myTFIDF(self):
+        # QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+        self.textBrowser.clear()
+        word_tfidf = MY_TF_IDF.getTFIDF(self.content1)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText(str(word_tfidf))
 
     # compare 按钮 动作按钮店址事件
-    def button_compare(self):
-        QMessageBox.about(self, 'compare', '点击了按钮点动作')
+    def button_SL_TFIDF(self):
+        # QMessageBox.about(self, 'compare', '点击了按钮点动作')
+        self.textBrowser.clear()
+        word_tfidf = SL_TFIDF.Tfidf()
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText(str(word_tfidf))
+
 
     # calculate simhash 按钮 动作按钮店址事件
-    def button_calculate_simhash(self):
-        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
+    def button_cos(self):
+        # QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
+        self.textBrowser.clear()
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            self.content1 = f.read()
+        f.close()
+        with open(self.filePath2, 'r', encoding='utf-8') as f:
+            self.content2 = f.read()
+        f.close()
+
+        sim = Cos(self.content1, self.content2)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText(str(sim.V1) + '\n')
+        self.textBrowser.setTextColor(Qt.blue)
+        self.textBrowser.insertPlainText(str(sim.V2) + '\n')
+        similarity = sim.culculate()
+        self.textBrowser.setTextColor(Qt.red)
+        self.textBrowser.insertPlainText("\nsimilarity = %.2f" % similarity)
+
 
 ########################################################################################################################
 
@@ -1226,8 +1340,10 @@ class child_EX7_UI(QMainWindow, Ui_MainWindow_7):
         self.buttonInit()
         # 查看文件路径
         self.filePath1 = None
+        self.filePath2 = None
         # 文本
         self.content1 = None
+        self.content2 = None
 
     # 监听事件都放在这里面
     def controller(self):
@@ -1260,13 +1376,11 @@ class child_EX7_UI(QMainWindow, Ui_MainWindow_7):
 
     # 按钮事件都放在这里面
     def buttonInit(self):
-        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton.clicked.connect(self.button_textRank)
         self.pushButton_2.clicked.connect(self.button_clear1)
-        self.pushButton_3.clicked.connect(self.button_clear2)
-        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_4.clicked.connect(self.button_pageRank)
         self.pushButton_5.clicked.connect(self.button_selectFile1)
         self.pushButton_6.clicked.connect(self.button_selectFile2)
-        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
         self.pushButton_8.clicked.connect(self.button_input1)
         self.pushButton_9.clicked.connect(self.button_input2)
 
@@ -1275,19 +1389,14 @@ class child_EX7_UI(QMainWindow, Ui_MainWindow_7):
         # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
         self.textBrowser.clear()
 
-    # Clear2按钮 动作按钮店址事件
-    def button_clear2(self):
-        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
-        self.textBrowser_2.clear()
-
     # 选择文件1动作按钮店址事件
     def button_selectFile1(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
-        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
-        # self.filePath1 = fileName[0][0]
-        # # print(self.filePath1)
-        # self.lineEdit.setText(self.filePath1)
-        # # 加载文件数据
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath1 = fileName[0][0]
+        # print(self.filePath1)
+        self.lineEdit.setText(self.filePath1)
+        # 加载文件数据
         # with open(self.filePath1, 'r', encoding='utf-8') as f:
         #     self.content1 = f.read()
         # f.close()
@@ -1296,27 +1405,88 @@ class child_EX7_UI(QMainWindow, Ui_MainWindow_7):
 
     # 选择文件2动作按钮店址事件
     def button_selectFile2(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        self.textBrowser.clear()
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath2 = fileName[0][0]
+        # print(self.filePath2)
+        self.lineEdit_2.setText(self.filePath2)
+        # 加载文件数据
+        with open(self.filePath2, 'r', encoding='utf-8') as f:
+            self.content2 = f.read()
+        f.close()
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content2)
 
     # input1按钮 动作按钮店址事件
     def button_input1(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.content1 = self.lineEdit.text()
+        # 加载文件数据
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
 
     # input2按钮 动作按钮店址事件
     def button_input2(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.content2 = self.lineEdit_2.text()
+        # 加载文件数据
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content2)
 
     # calculate kshingle 按钮 动作按钮店址事件
-    def button_calculate_kshingle(self):
-        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+    def button_pageRank(self):
+        # QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+        self.textBrowser.clear()
+
+        node_list, edge_list = PRIterator.read_data(self.filePath1)
+        # print(Color.carmine, '# 顶点信息：', node_list)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText('# 顶点信息：' + str(node_list))
+        # print(Color.carmine, '# 边信息：', edge_list)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText('\n# 边信息：' + str(edge_list))
+
+        dg = digraph()
+        dg.add_nodes(node_list)
+        for edg in edge_list:
+            dg.add_edge(edg)
+
+        pr = PRIterator(dg)
+        page_ranks = pr.page_rank()
+        # print(Color.green, "# The final page rank is", page_ranks)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText("\n# The final page rank is" + str(page_ranks))
 
     # compare 按钮 动作按钮店址事件
-    def button_compare(self):
-        QMessageBox.about(self, 'compare', '点击了按钮点动作')
+    def button_textRank(self):
+        # QMessageBox.about(self, 'compare', '点击了按钮点动作')
+        self.textBrowser.clear()
 
-    # calculate simhash 按钮 动作按钮店址事件
-    def button_calculate_simhash(self):
-        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
+        keywords = TextRank.keywords_extraction(self.content2)
+        for item in keywords:
+            # 打印每个关键词的内容及关键词的权重
+            # print(item.word, item.weight)
+            self.textBrowser.setTextColor(Qt.black)
+            self.textBrowser.insertPlainText(str(item.word) + str(item.weight))
+
+        # 关键短语抽取
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText('\n# 关键短语抽取：\n')
+        keyphrases = TextRank.keyphrases_extraction(self.content2)
+        # print(keyphrases)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText(str(keyphrases))
+
+        # 关键句抽取
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText('\n# 关键句抽取：\n')
+        keysentences = TextRank.keysentences_extraction(self.content2)
+        print(keysentences)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText(str(keysentences))
 
 ########################################################################################################################
 
@@ -1334,6 +1504,7 @@ class child_EX8_UI(QMainWindow, Ui_MainWindow_8):
         self.filePath1 = None
         # 文本
         self.content1 = None
+        self.keyString = None
 
     # 监听事件都放在这里面
     def controller(self):
@@ -1366,13 +1537,9 @@ class child_EX8_UI(QMainWindow, Ui_MainWindow_8):
 
     # 按钮事件都放在这里面
     def buttonInit(self):
-        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton.clicked.connect(self.button_abstract)
         self.pushButton_2.clicked.connect(self.button_clear1)
-        self.pushButton_3.clicked.connect(self.button_clear2)
-        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
         self.pushButton_5.clicked.connect(self.button_selectFile1)
-        self.pushButton_6.clicked.connect(self.button_selectFile2)
-        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
         self.pushButton_8.clicked.connect(self.button_input1)
         self.pushButton_9.clicked.connect(self.button_input2)
 
@@ -1381,48 +1548,49 @@ class child_EX8_UI(QMainWindow, Ui_MainWindow_8):
         # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
         self.textBrowser.clear()
 
-    # Clear2按钮 动作按钮店址事件
-    def button_clear2(self):
-        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
-        self.textBrowser_2.clear()
-
     # 选择文件1动作按钮店址事件
     def button_selectFile1(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
-        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
-        # self.filePath1 = fileName[0][0]
-        # # print(self.filePath1)
-        # self.lineEdit.setText(self.filePath1)
-        # # 加载文件数据
-        # with open(self.filePath1, 'r', encoding='utf-8') as f:
-        #     self.content1 = f.read()
-        # f.close()
-        # self.textBrowser.setTextColor(Qt.black)
-        # self.textBrowser.insertPlainText(self.content1)
-
-    # 选择文件2动作按钮店址事件
-    def button_selectFile2(self):
-        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        # QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        self.filePath1 = fileName[0][0]
+        # print(self.filePath1)
+        self.lineEdit.setText(self.filePath1)
+        # 加载文件数据
+        with open(self.filePath1, 'r', encoding='utf-8') as f:
+            self.content1 = f.read()
+        f.close()
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
 
     # input1按钮 动作按钮店址事件
     def button_input1(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        self.textBrowser.clear()
+        self.content1 = self.lineEdit.text()
+        # 加载文件数据
+        self.textBrowser.setTextColor(Qt.black)
+        self.textBrowser.insertPlainText(self.content1)
 
     # input2按钮 动作按钮店址事件
     def button_input2(self):
-        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+        # self.textBrowser.clear()
+        self.keyString = self.lineEdit_2.text()
 
     # calculate kshingle 按钮 动作按钮店址事件
-    def button_calculate_kshingle(self):
-        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+    def button_abstract(self):
+        # QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+        # self.textBrowser.clear()
 
-    # compare 按钮 动作按钮店址事件
-    def button_compare(self):
-        QMessageBox.about(self, 'compare', '点击了按钮点动作')
-
-    # calculate simhash 按钮 动作按钮店址事件
-    def button_calculate_simhash(self):
-        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
+        abstract = TFIDF_Abstract(self.keyString, self.filePath1)
+        # for index in abstract.abstracts:
+        #     print(Color.blue, index)
+        # for index in abstract.abstractWords:
+        #     print(Color.green, index)
+        # print(Color.red, abstract.maxTfidfPos)
+        # print(Color.red, abstract.abstract)
+        self.textBrowser.setTextColor(Qt.darkGreen)
+        self.textBrowser.insertPlainText("\n\n" + abstract.abstract)
 
 ########################################################################################################################
 

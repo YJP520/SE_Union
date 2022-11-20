@@ -37,6 +37,8 @@ Pyside2
 
 ### **实践展示**
 
+![avater](result.png)
+
 ---
 
 ### **总结**

@@ -34,9 +34,9 @@
    <widget class="QPushButton" name="pushButton">
     <property name="geometry">
      <rect>
-      <x>370</x>
+      <x>280</x>
       <y>130</y>
-      <width>61</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
@@ -63,7 +63,7 @@ QPushButton:hover
 </string>
     </property>
     <property name="text">
-     <string>对比</string>
+     <string>计算</string>
     </property>
    </widget>
    <widget class="QLabel" name="label">
@@ -77,18 +77,18 @@ QPushButton:hover
     </property>
     <property name="styleSheet">
      <string notr="true">font: 25 20pt &quot;等线 Light&quot;;
-color: rgb(0, 255, 255)</string>
+color: rgb(170, 170, 255)</string>
     </property>
     <property name="text">
-     <string>EX4 - 文本查重技术</string>
+     <string>EX6 - 文本相似度</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">
     <property name="geometry">
      <rect>
-      <x>540</x>
-      <y>50</y>
-      <width>51</width>
+      <x>520</x>
+      <y>130</y>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -118,47 +118,12 @@ QPushButton:hover
      <string>清屏1</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
-    <property name="geometry">
-     <rect>
-      <x>540</x>
-      <y>90</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="autoFillBackground">
-     <bool>false</bool>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton
-{
-	background-color: rgb(255, 170, 255); /*背景色*/ 
-	border-style: outset;    /* 边界内凹 */
-	border-width: 1px;     /* 边边界宽度 */
-	border-radius: 5px; /* 边界圆滑 */
-	font: dengxian 16px;     /* 字体大小 */
-	min-width: 2em;
-	color: white; /* 字体颜色 */
-	
-}
-/* 鼠标经过改变按钮颜色 */
-QPushButton:hover
-{
-	background-color: rgb(0, 150, 0);
-}
-</string>
-    </property>
-    <property name="text">
-     <string>清屏2</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>90</x>
       <y>130</y>
-      <width>61</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
@@ -168,7 +133,7 @@ QPushButton:hover
     <property name="styleSheet">
      <string notr="true">QPushButton
 {
-	background-color: rgb(75, 173, 238); /*背景色*/ 
+	background-color: rgb(170, 170, 255); /*背景色*/ 
 	border-style: outset;    /* 边界内凹 */
 	border-width: 1px;     /* 边边界宽度 */
 	border-radius: 5px; /* 边界圆滑 */
@@ -193,7 +158,7 @@ QPushButton:hover
      <rect>
       <x>10</x>
       <y>170</y>
-      <width>281</width>
+      <width>581</width>
       <height>321</height>
      </rect>
     </property>
@@ -219,7 +184,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>401</width>
+      <width>461</width>
       <height>31</height>
      </rect>
     </property>
@@ -232,7 +197,7 @@ p, li { white-space: pre-wrap; }
      <rect>
       <x>10</x>
       <y>90</y>
-      <width>401</width>
+      <width>461</width>
       <height>31</height>
      </rect>
     </property>
@@ -243,7 +208,7 @@ p, li { white-space: pre-wrap; }
    <widget class="QPushButton" name="pushButton_5">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>540</x>
       <y>50</y>
       <width>51</width>
       <height>31</height>
@@ -278,7 +243,7 @@ QPushButton:hover
    <widget class="QPushButton" name="pushButton_6">
     <property name="geometry">
      <rect>
-      <x>480</x>
+      <x>540</x>
       <y>90</y>
       <width>51</width>
       <height>31</height>
@@ -313,7 +278,7 @@ QPushButton:hover
    <widget class="QLabel" name="label_4">
     <property name="geometry">
      <rect>
-      <x>130</x>
+      <x>190</x>
       <y>130</y>
       <width>91</width>
       <height>31</height>
@@ -333,15 +298,15 @@ QPushButton:hover
 color: rgb(255, 0, 127)</string>
     </property>
     <property name="text">
-     <string>K-Shingle</string>
+     <string>SL_TFDIF</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>450</x>
+      <x>380</x>
       <y>130</y>
-      <width>81</width>
+      <width>51</width>
       <height>31</height>
      </rect>
     </property>
@@ -359,80 +324,15 @@ color: rgb(255, 0, 127)</string>
 color: rgb(170, 85, 255)</string>
     </property>
     <property name="text">
-     <string>SimHash</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>250</x>
-      <y>130</y>
-      <width>41</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>2</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_6">
-    <property name="geometry">
-     <rect>
-      <x>220</x>
-      <y>130</y>
-      <width>31</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>等线 Light</family>
-      <pointsize>10</pointsize>
-      <weight>1</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 10 10pt &quot;等线 Light&quot;;
-color: rgb(255, 0, 127)</string>
-    </property>
-    <property name="text">
-     <string>K值</string>
-    </property>
-   </widget>
-   <widget class="QTextBrowser" name="textBrowser_2">
-    <property name="geometry">
-     <rect>
-      <x>300</x>
-      <y>170</y>
-      <width>291</width>
-      <height>321</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>等线</family>
-      <pointsize>12</pointsize>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="html">
-     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'等线'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     <string>Cos</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_7">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>420</x>
       <y>130</y>
-      <width>61</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
@@ -442,7 +342,7 @@ p, li { white-space: pre-wrap; }
     <property name="styleSheet">
      <string notr="true">QPushButton
 {
-	background-color: rgb(75, 173, 238); /*背景色*/ 
+	background-color: rgb(170, 85, 255); /*背景色*/ 
 	border-style: outset;    /* 边界内凹 */
 	border-width: 1px;     /* 边边界宽度 */
 	border-radius: 5px; /* 边界圆滑 */
@@ -462,22 +362,12 @@ QPushButton:hover
      <string>计算</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit_4">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>130</y>
-      <width>51</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>130</y>
-      <width>61</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
@@ -492,16 +382,16 @@ QPushButton:hover
     </property>
     <property name="styleSheet">
      <string notr="true">font: 10pt &quot;等线&quot;;
-color: rgb(0, 255, 255)</string>
+color: rgb(170, 170, 255)</string>
     </property>
     <property name="text">
-     <string>相似度</string>
+     <string>My_TFIDF</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_8">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>480</x>
       <y>50</y>
       <width>51</width>
       <height>31</height>
@@ -536,7 +426,7 @@ QPushButton:hover
    <widget class="QPushButton" name="pushButton_9">
     <property name="geometry">
      <rect>
-      <x>420</x>
+      <x>480</x>
       <y>90</y>
       <width>51</width>
       <height>31</height>
@@ -572,7 +462,6 @@ QPushButton:hover
    <zorder>pushButton</zorder>
    <zorder>label</zorder>
    <zorder>pushButton_2</zorder>
-   <zorder>pushButton_3</zorder>
    <zorder>pushButton_4</zorder>
    <zorder>textBrowser</zorder>
    <zorder>lineEdit</zorder>
@@ -580,11 +469,7 @@ QPushButton:hover
    <zorder>pushButton_5</zorder>
    <zorder>pushButton_6</zorder>
    <zorder>label_5</zorder>
-   <zorder>lineEdit_3</zorder>
-   <zorder>label_6</zorder>
-   <zorder>textBrowser_2</zorder>
    <zorder>pushButton_7</zorder>
-   <zorder>lineEdit_4</zorder>
    <zorder>label_7</zorder>
    <zorder>pushButton_8</zorder>
    <zorder>pushButton_9</zorder>

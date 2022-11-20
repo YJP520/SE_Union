@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/Data/Ex7/pagerank_four_nodes.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data/Ex7/pagerank_seven_nodes.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/Data/Ex7/pagerank_tri_nodes.txt" charset="GBK" />
+  </component>
+</project>
