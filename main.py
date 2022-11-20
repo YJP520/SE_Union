@@ -20,10 +20,10 @@ from Ex1_ui import Ui_MainWindow_1
 from Ex2_ui import Ui_MainWindow_2
 from Ex3_ui import Ui_MainWindow_3
 from Ex4_ui import Ui_MainWindow_4
-# from Ex5_ui import Ui_MainWindow_5
-# from Ex6_ui import Ui_MainWindow_6
-# from Ex7_ui import Ui_MainWindow_7
-# from Ex8_ui import Ui_MainWindow_8
+from Ex5_ui import Ui_MainWindow_5
+from Ex6_ui import Ui_MainWindow_6
+from Ex7_ui import Ui_MainWindow_7
+from Ex8_ui import Ui_MainWindow_8
 # 导入实验 实现类
 from Experiments.Ex1 import OrderMatch
 from Experiments.Ex2 import WordsIndex
@@ -1003,38 +1003,426 @@ class child_EX4_UI(QMainWindow, Ui_MainWindow_4):
 ########################################################################################################################
 
 
-# # 子窗口继承类
-# class child_EX5_UI(QMainWindow, Ui_MainWindow_5):
-#     def __init__(self, parent=None):
-#         super().__init__(parent)
-#         self.setupUi(self)
+# 子窗口继承类
+class child_EX5_UI(QMainWindow, Ui_MainWindow_5):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        # 事件监听
+        self.controller()
+        # 按钮监听
+        self.buttonInit()
+        # 查看文件路径
+        self.filePath1 = None
+        # 文本
+        self.content1 = None
+
+    # 监听事件都放在这里面
+    def controller(self):
+        # 设置监听
+        self.actionSetting.triggered.connect(self.setting)
+        # 退出监听
+        self.actionExit.triggered.connect(self.exit)
+        # 查找监听
+        self.actionFind.triggered.connect(self.find)
+        # 提示监听
+        self.actionTips.triggered.connect(self.tips)
+
+    # 设置动作按钮点击事件
+    def setting(self):
+        QMessageBox.about(self, 'Setting', '点击了设置动作')
+
+    # 查询动作按钮点击事件
+    def find(self):
+        QMessageBox.about(self, 'find', '点击了查找动作')
+
+    # 退出动作按钮店址事件
+    def exit(self):
+        QMessageBox.about(self, 'Exit', '确定退出程序？')
+        # 退出程序
+        self.actionExit()
+
+    # 提示动作按钮店址事件
+    def tips(self):
+        QMessageBox.about(self, 'Tips', '点击了提示动作')
+
+    # 按钮事件都放在这里面
+    def buttonInit(self):
+        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton_2.clicked.connect(self.button_clear1)
+        self.pushButton_3.clicked.connect(self.button_clear2)
+        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_5.clicked.connect(self.button_selectFile1)
+        self.pushButton_6.clicked.connect(self.button_selectFile2)
+        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
+        self.pushButton_8.clicked.connect(self.button_input1)
+        self.pushButton_9.clicked.connect(self.button_input2)
+
+    # Clear1按钮 动作按钮店址事件
+    def button_clear1(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser.clear()
+
+    # Clear2按钮 动作按钮店址事件
+    def button_clear2(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser_2.clear()
+
+    # 选择文件1动作按钮店址事件
+    def button_selectFile1(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        # self.filePath1 = fileName[0][0]
+        # # print(self.filePath1)
+        # self.lineEdit.setText(self.filePath1)
+        # # 加载文件数据
+        # with open(self.filePath1, 'r', encoding='utf-8') as f:
+        #     self.content1 = f.read()
+        # f.close()
+        # self.textBrowser.setTextColor(Qt.black)
+        # self.textBrowser.insertPlainText(self.content1)
+
+    # 选择文件2动作按钮店址事件
+    def button_selectFile2(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+
+    # input1按钮 动作按钮店址事件
+    def button_input1(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # input2按钮 动作按钮店址事件
+    def button_input2(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # calculate kshingle 按钮 动作按钮店址事件
+    def button_calculate_kshingle(self):
+        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+
+    # compare 按钮 动作按钮店址事件
+    def button_compare(self):
+        QMessageBox.about(self, 'compare', '点击了按钮点动作')
+
+    # calculate simhash 按钮 动作按钮店址事件
+    def button_calculate_simhash(self):
+        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
 
 ########################################################################################################################
 
 
-# # 子窗口继承类
-# class child_EX6_UI(QMainWindow, Ui_MainWindow_6):
-#     def __init__(self, parent=None):
-#         super().__init__(parent)
-#         self.setupUi(self)
+# 子窗口继承类
+class child_EX6_UI(QMainWindow, Ui_MainWindow_6):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        # 事件监听
+        self.controller()
+        # 按钮监听
+        self.buttonInit()
+        # 查看文件路径
+        self.filePath1 = None
+        # 文本
+        self.content1 = None
+
+    # 监听事件都放在这里面
+    def controller(self):
+        # 设置监听
+        self.actionSetting.triggered.connect(self.setting)
+        # 退出监听
+        self.actionExit.triggered.connect(self.exit)
+        # 查找监听
+        self.actionFind.triggered.connect(self.find)
+        # 提示监听
+        self.actionTips.triggered.connect(self.tips)
+
+    # 设置动作按钮点击事件
+    def setting(self):
+        QMessageBox.about(self, 'Setting', '点击了设置动作')
+
+    # 查询动作按钮点击事件
+    def find(self):
+        QMessageBox.about(self, 'find', '点击了查找动作')
+
+    # 退出动作按钮店址事件
+    def exit(self):
+        QMessageBox.about(self, 'Exit', '确定退出程序？')
+        # 退出程序
+        self.actionExit()
+
+    # 提示动作按钮店址事件
+    def tips(self):
+        QMessageBox.about(self, 'Tips', '点击了提示动作')
+
+    # 按钮事件都放在这里面
+    def buttonInit(self):
+        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton_2.clicked.connect(self.button_clear1)
+        self.pushButton_3.clicked.connect(self.button_clear2)
+        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_5.clicked.connect(self.button_selectFile1)
+        self.pushButton_6.clicked.connect(self.button_selectFile2)
+        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
+        self.pushButton_8.clicked.connect(self.button_input1)
+        self.pushButton_9.clicked.connect(self.button_input2)
+
+    # Clear1按钮 动作按钮店址事件
+    def button_clear1(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser.clear()
+
+    # Clear2按钮 动作按钮店址事件
+    def button_clear2(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser_2.clear()
+
+    # 选择文件1动作按钮店址事件
+    def button_selectFile1(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        # self.filePath1 = fileName[0][0]
+        # # print(self.filePath1)
+        # self.lineEdit.setText(self.filePath1)
+        # # 加载文件数据
+        # with open(self.filePath1, 'r', encoding='utf-8') as f:
+        #     self.content1 = f.read()
+        # f.close()
+        # self.textBrowser.setTextColor(Qt.black)
+        # self.textBrowser.insertPlainText(self.content1)
+
+    # 选择文件2动作按钮店址事件
+    def button_selectFile2(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+
+    # input1按钮 动作按钮店址事件
+    def button_input1(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # input2按钮 动作按钮店址事件
+    def button_input2(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # calculate kshingle 按钮 动作按钮店址事件
+    def button_calculate_kshingle(self):
+        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+
+    # compare 按钮 动作按钮店址事件
+    def button_compare(self):
+        QMessageBox.about(self, 'compare', '点击了按钮点动作')
+
+    # calculate simhash 按钮 动作按钮店址事件
+    def button_calculate_simhash(self):
+        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
 
 ########################################################################################################################
 
 
-# # 子窗口继承类
-# class child_EX7_UI(QMainWindow, Ui_MainWindow_7):
-#     def __init__(self, parent=None):
-#         super().__init__(parent)
-#         self.setupUi(self)
+# 子窗口继承类
+class child_EX7_UI(QMainWindow, Ui_MainWindow_7):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        # 事件监听
+        self.controller()
+        # 按钮监听
+        self.buttonInit()
+        # 查看文件路径
+        self.filePath1 = None
+        # 文本
+        self.content1 = None
+
+    # 监听事件都放在这里面
+    def controller(self):
+        # 设置监听
+        self.actionSetting.triggered.connect(self.setting)
+        # 退出监听
+        self.actionExit.triggered.connect(self.exit)
+        # 查找监听
+        self.actionFind.triggered.connect(self.find)
+        # 提示监听
+        self.actionTips.triggered.connect(self.tips)
+
+    # 设置动作按钮点击事件
+    def setting(self):
+        QMessageBox.about(self, 'Setting', '点击了设置动作')
+
+    # 查询动作按钮点击事件
+    def find(self):
+        QMessageBox.about(self, 'find', '点击了查找动作')
+
+    # 退出动作按钮店址事件
+    def exit(self):
+        QMessageBox.about(self, 'Exit', '确定退出程序？')
+        # 退出程序
+        self.actionExit()
+
+    # 提示动作按钮店址事件
+    def tips(self):
+        QMessageBox.about(self, 'Tips', '点击了提示动作')
+
+    # 按钮事件都放在这里面
+    def buttonInit(self):
+        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton_2.clicked.connect(self.button_clear1)
+        self.pushButton_3.clicked.connect(self.button_clear2)
+        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_5.clicked.connect(self.button_selectFile1)
+        self.pushButton_6.clicked.connect(self.button_selectFile2)
+        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
+        self.pushButton_8.clicked.connect(self.button_input1)
+        self.pushButton_9.clicked.connect(self.button_input2)
+
+    # Clear1按钮 动作按钮店址事件
+    def button_clear1(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser.clear()
+
+    # Clear2按钮 动作按钮店址事件
+    def button_clear2(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser_2.clear()
+
+    # 选择文件1动作按钮店址事件
+    def button_selectFile1(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        # self.filePath1 = fileName[0][0]
+        # # print(self.filePath1)
+        # self.lineEdit.setText(self.filePath1)
+        # # 加载文件数据
+        # with open(self.filePath1, 'r', encoding='utf-8') as f:
+        #     self.content1 = f.read()
+        # f.close()
+        # self.textBrowser.setTextColor(Qt.black)
+        # self.textBrowser.insertPlainText(self.content1)
+
+    # 选择文件2动作按钮店址事件
+    def button_selectFile2(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+
+    # input1按钮 动作按钮店址事件
+    def button_input1(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # input2按钮 动作按钮店址事件
+    def button_input2(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # calculate kshingle 按钮 动作按钮店址事件
+    def button_calculate_kshingle(self):
+        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+
+    # compare 按钮 动作按钮店址事件
+    def button_compare(self):
+        QMessageBox.about(self, 'compare', '点击了按钮点动作')
+
+    # calculate simhash 按钮 动作按钮店址事件
+    def button_calculate_simhash(self):
+        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
 
 ########################################################################################################################
 
 
-# # 子窗口继承类
-# class child_EX8_UI(QMainWindow, Ui_MainWindow_8):
-#     def __init__(self, parent=None):
-#         super().__init__(parent)
-#         self.setupUi(self)
+# 子窗口继承类
+class child_EX8_UI(QMainWindow, Ui_MainWindow_8):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        # 事件监听
+        self.controller()
+        # 按钮监听
+        self.buttonInit()
+        # 查看文件路径
+        self.filePath1 = None
+        # 文本
+        self.content1 = None
+
+    # 监听事件都放在这里面
+    def controller(self):
+        # 设置监听
+        self.actionSetting.triggered.connect(self.setting)
+        # 退出监听
+        self.actionExit.triggered.connect(self.exit)
+        # 查找监听
+        self.actionFind.triggered.connect(self.find)
+        # 提示监听
+        self.actionTips.triggered.connect(self.tips)
+
+    # 设置动作按钮点击事件
+    def setting(self):
+        QMessageBox.about(self, 'Setting', '点击了设置动作')
+
+    # 查询动作按钮点击事件
+    def find(self):
+        QMessageBox.about(self, 'find', '点击了查找动作')
+
+    # 退出动作按钮店址事件
+    def exit(self):
+        QMessageBox.about(self, 'Exit', '确定退出程序？')
+        # 退出程序
+        self.actionExit()
+
+    # 提示动作按钮店址事件
+    def tips(self):
+        QMessageBox.about(self, 'Tips', '点击了提示动作')
+
+    # 按钮事件都放在这里面
+    def buttonInit(self):
+        self.pushButton.clicked.connect(self.button_compare)
+        self.pushButton_2.clicked.connect(self.button_clear1)
+        self.pushButton_3.clicked.connect(self.button_clear2)
+        self.pushButton_4.clicked.connect(self.button_calculate_kshingle)
+        self.pushButton_5.clicked.connect(self.button_selectFile1)
+        self.pushButton_6.clicked.connect(self.button_selectFile2)
+        self.pushButton_7.clicked.connect(self.button_calculate_simhash)
+        self.pushButton_8.clicked.connect(self.button_input1)
+        self.pushButton_9.clicked.connect(self.button_input2)
+
+    # Clear1按钮 动作按钮店址事件
+    def button_clear1(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser.clear()
+
+    # Clear2按钮 动作按钮店址事件
+    def button_clear2(self):
+        # QMessageBox.about(self, 'Clear', '点击了按钮点动作')
+        self.textBrowser_2.clear()
+
+    # 选择文件1动作按钮店址事件
+    def button_selectFile1(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+        # fileName = QFileDialog.getOpenFileNames(self, "选择文件", os.getcwd(), "All Files(*);;Text Files(*.txt)")
+        # self.filePath1 = fileName[0][0]
+        # # print(self.filePath1)
+        # self.lineEdit.setText(self.filePath1)
+        # # 加载文件数据
+        # with open(self.filePath1, 'r', encoding='utf-8') as f:
+        #     self.content1 = f.read()
+        # f.close()
+        # self.textBrowser.setTextColor(Qt.black)
+        # self.textBrowser.insertPlainText(self.content1)
+
+    # 选择文件2动作按钮店址事件
+    def button_selectFile2(self):
+        QMessageBox.about(self, 'SelectFile', '点击了提示动作')
+
+    # input1按钮 动作按钮店址事件
+    def button_input1(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # input2按钮 动作按钮店址事件
+    def button_input2(self):
+        QMessageBox.about(self, 'LookOver', '点击了按钮点动作')
+
+    # calculate kshingle 按钮 动作按钮店址事件
+    def button_calculate_kshingle(self):
+        QMessageBox.about(self, 'calculate_kshingle', '点击了按钮点动作')
+
+    # compare 按钮 动作按钮店址事件
+    def button_compare(self):
+        QMessageBox.about(self, 'compare', '点击了按钮点动作')
+
+    # calculate simhash 按钮 动作按钮店址事件
+    def button_calculate_simhash(self):
+        QMessageBox.about(self, 'calculate_simhash', '点击了按钮点动作')
 
 ########################################################################################################################
 
@@ -1049,10 +1437,10 @@ class AppUI:
         self.child_EX2_ui = child_EX2_UI()
         self.child_EX3_ui = child_EX3_UI()
         self.child_EX4_ui = child_EX4_UI()
-        # self.child_EX5_ui = child_EX5_UI()
-        # self.child_EX6_ui = child_EX6_UI()
-        # self.child_EX7_ui = child_EX7_UI()
-        # self.child_EX8_ui = child_EX8_UI()
+        self.child_EX5_ui = child_EX5_UI()
+        self.child_EX6_ui = child_EX6_UI()
+        self.child_EX7_ui = child_EX7_UI()
+        self.child_EX8_ui = child_EX8_UI()
 
         # 初始化调用
         self.init()
@@ -1074,17 +1462,17 @@ class AppUI:
         self.main_ui.pushButton_5.clicked.connect(self.child_EX4_ui.show)
         self.main_ui.actionT1_4.triggered.connect(self.child_EX4_ui.show)
         # EX5
-        # self.main_ui.pushButton_6.clicked.connect(self.child_EX5_ui.show)
-        # self.main_ui.actionT1_5.triggered.connect(self.child_EX5_ui.show)
+        self.main_ui.pushButton_6.clicked.connect(self.child_EX5_ui.show)
+        self.main_ui.actionT1_5.triggered.connect(self.child_EX5_ui.show)
         # EX6
-        # self.main_ui.pushButton_7.clicked.connect(self.child_EX6_ui.show)
-        # self.main_ui.actionT1_6.triggered.connect(self.child_EX6_ui.show)
+        self.main_ui.pushButton_7.clicked.connect(self.child_EX6_ui.show)
+        self.main_ui.actionT1_6.triggered.connect(self.child_EX6_ui.show)
         # EX7
-        # self.main_ui.pushButton_8.clicked.connect(self.child_EX7_ui.show)
-        # self.main_ui.actionT1_7.triggered.connect(self.child_EX7_ui.show)
+        self.main_ui.pushButton_8.clicked.connect(self.child_EX7_ui.show)
+        self.main_ui.actionT1_7.triggered.connect(self.child_EX7_ui.show)
         # EX8
-        # self.main_ui.pushButton_9.clicked.connect(self.child_EX8_ui.show)
-        # self.main_ui.actionT1_8.triggered.connect(self.child_EX8_ui.show)
+        self.main_ui.pushButton_9.clicked.connect(self.child_EX8_ui.show)
+        self.main_ui.actionT1_8.triggered.connect(self.child_EX8_ui.show)
 
 
 ########################################################################################################################
